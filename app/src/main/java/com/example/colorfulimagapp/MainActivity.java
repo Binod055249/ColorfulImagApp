@@ -122,7 +122,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 try{
                     File myPictureFile = SaveFile.saveFile(MainActivity.this, bitmap);
-                    Uri myUri = Uri.fromFile(myPictureFile);
+                    Uri myUri = FileProvider.getUriForFile(
+                            MainActivity.this, "com.example.colorfulimagapp.provider", myPictureFile);
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
                     shareIntent.setType("text/plain");
                     shareIntent.putExtra(Intent.EXTRA_SUBJECT,
@@ -133,11 +134,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
                     Toast.makeText(this, "sharing is done", Toast.LENGTH_SHORT).show();
-                }catch (Exception e){
+                }catch (Exception e) {
 
                     e.printStackTrace();
                 }
-
                 break;
         }
     }
